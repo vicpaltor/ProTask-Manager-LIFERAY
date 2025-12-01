@@ -47,48 +47,47 @@ Sigue estos pasos para levantar el entorno de desarrollo local.
 *   Git.
 
 ### 2. Clonar el Repositorio
-\`\`\`bash
+```bash
 git clone https://github.com/tu-usuario/ProTask-Manager.git
 cd ProTask-Manager
-\`\`\`
 
 ### 3. Configurar la Base de Datos (Docker)
 El proyecto requiere una instancia de PostgreSQL. Ejecuta el siguiente comando para levantar el contenedor:
 
-\`\`\`bash
-docker run --name liferay-postgres \
-  -e POSTGRES_USER=liferay \
-  -e POSTGRES_PASSWORD=liferay \
-  -e POSTGRES_DB=lportal \
-  -p 5433:5432 \
+```bash
+docker run --name liferay-postgres 
+  -e POSTGRES_USER=liferay 
+  -e POSTGRES_PASSWORD=liferay 
+  -e POSTGRES_DB=lportal 
+  -p 5433:5432 
   -d postgres:14
-\`\`\`
+```
 > **Nota:** Se utiliza el puerto local **5433** para evitar conflictos con instalaciones previas de Postgres.
 
 ### 4. Inicializar el Servidor Liferay
 Descarga el bundle de Tomcat/Liferay necesario (si no existe):
 
-\`\`\`bash
+```bash
 ./gradlew initBundle
-\`\`\`
+```
 
 ### 5. Configuración del Portal
 Asegúrate de tener el archivo bundles/portal-ext.properties con la conexión a BD:
 
-\`\`\`properties
+```properties
 jdbc.default.driverClassName=org.postgresql.Driver
 jdbc.default.url=jdbc:postgresql://localhost:5433/lportal
 jdbc.default.username=liferay
 jdbc.default.password=liferay
 setup.wizard.enabled=false
-\`\`\`
+```
 
 ### 6. Despliegue de Módulos (Backend)
 Compila y despliega la capa de persistencia (Service Builder):
 
-\`\`\`bash
+```bash
 ./gradlew :modules:protask:deploy
-\`\`\`
+```
 *Verifica en los logs que aparece: STARTED com.miempresa.protask.service_1.0.0*
 
 ### 7. Ejecutar
@@ -130,7 +129,7 @@ La entidad principal Task ha sido generada mediante **Liferay Service Builder** 
 ## 👤 Autor
 
 **Víctor** - *Desarrollador Java & Liferay*
-[LinkedIn](tu-url-de-linkedin) | [GitHub](https://github.com/vicpaltor)
+[LinkedIn](https://www.linkedin.com/in/victor-palos/) | [GitHub](https://github.com/vicpaltor)
 "@
 
 $readmeContent | Set-Content -Path "README.md" -Encoding UTF8
