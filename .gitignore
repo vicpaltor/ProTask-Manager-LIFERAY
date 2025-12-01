@@ -1,27 +1,57 @@
-**/*.iml
-**/.ivy
-**/.classpath
-**/.project
-**/.sass-cache
-**/.settings
-**/bin
-**/build
-**/build_gradle
-**/dist
-**/node_modules
-**/node_modules_cache
-**/test-coverage
-**/tmp
-**/.web_bundle_build
-.gradle
-.idea
-/bundles
-/gradle-*.properties
-/plugins-sdk/**/classes
-/plugins-sdk/**/ivy.xml.MD5
-/plugins-sdk/**/liferay-hook.xml.processed
-/plugins-sdk/build.*.properties
-/plugins-sdk/dependencies/**/*.jar
-/plugins-sdk/dist
-/plugins-sdk/lib
-test-results
+***
+
+### 2. Archivo `.gitignore`
+
+Esto es **crítico**. Si no lo pones, subirás miles de archivos innecesarios (como el servidor entero) a GitHub.
+Crea un archivo llamado **`.gitignore`** (el punto al principio es importante) en la raíz `ProTask-Manager/`:
+
+```gitignore
+# --- Liferay Workspace ---
+bundles/
+build/
+dist/
+test-reports/
+TEST-*.xml
+
+# --- Gradle ---
+.gradle/
+build/
+out/
+/gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# --- Java & Classfiles ---
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- Modules specific ---
+# Ignorar carpetas de build dentro de los módulos
+modules/*/build/
+modules/*/bin/
+modules/*/test-classes/
+modules/*/*/build/
+modules/*/*/bin/
+modules/*/*/test-classes/
+
+# Ignorar node_modules si hacemos frontend luego
+node_modules/
+.sass-cache/
