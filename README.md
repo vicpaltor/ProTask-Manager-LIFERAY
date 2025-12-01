@@ -33,3 +33,17 @@ ProTask-Manager/
 │       └── protask-service/ # Implementación, Capa de Persistencia y SQL
 ├── themes/                  # Temas visuales (Frontend)
 └── build.gradle             # Configuración global de Gradle
+
+## 🚀 Guía de Instalación y Despliegue
+
+Sigue estos pasos para levantar el entorno de desarrollo local.
+
+### 1. Requisitos Previos
+*   Java JDK 17 configurado en el `PATH`.
+*   Docker Desktop instalado y corriendo.
+*   Git.
+
+### 2. Clonar el Repositorio
+```bash
+git clone https://github.com/tu-usuario/ProTask-Manager.git
+cd ProTask-Manager
