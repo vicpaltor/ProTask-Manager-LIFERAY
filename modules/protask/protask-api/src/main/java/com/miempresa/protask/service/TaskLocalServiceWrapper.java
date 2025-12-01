@@ -27,6 +27,16 @@ public class TaskLocalServiceWrapper
 	}
 
 	/**
+	 * Método de negocio para crear una nueva tarea de forma segura.
+	 */
+	@Override
+	public com.miempresa.protask.model.Task addTask(
+		String title, String description, java.util.Date dueDate) {
+
+		return _taskLocalService.addTask(title, description, dueDate);
+	}
+
+	/**
 	 * Adds the task to the database. Also notifies the appropriate model listeners.
 	 *
 	 * <p>

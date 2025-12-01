@@ -28,6 +28,7 @@ import com.miempresa.protask.model.Task;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -55,6 +56,11 @@ public interface TaskLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.miempresa.protask.service.impl.TaskLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the task local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link TaskLocalServiceUtil} if injection and service tracking are not available.
 	 */
+
+	/**
+	 * Método de negocio para crear una nueva tarea de forma segura.
+	 */
+	public Task addTask(String title, String description, Date dueDate);
 
 	/**
 	 * Adds the task to the database. Also notifies the appropriate model listeners.

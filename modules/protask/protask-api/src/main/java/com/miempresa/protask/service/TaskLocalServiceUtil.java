@@ -39,6 +39,15 @@ public class TaskLocalServiceUtil {
 	 */
 
 	/**
+	 * Método de negocio para crear una nueva tarea de forma segura.
+	 */
+	public static Task addTask(
+		String title, String description, java.util.Date dueDate) {
+
+		return getService().addTask(title, description, dueDate);
+	}
+
+	/**
 	 * Adds the task to the database. Also notifies the appropriate model listeners.
 	 *
 	 * <p>
