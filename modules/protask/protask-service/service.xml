@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="com.miempresa.protask">
+	<namespace>ProTask</namespace> <!-- Esto pondrá el prefijo PROTASK_ a tus tablas -->
+
+	<!-- Entidad: Tarea -->
+	<entity local-service="true" remote-service="true" name="Task" uuid="true">
+
+		<!-- Clave Primaria -->
+		<column name="taskId" type="long" primary="true" />
+
+		<!-- Campos de Auditoría (Obligatorios en Liferay para saber quién creó qué) -->
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Nuestros campos de negocio -->
+		<column name="title" type="String" />
+		<column name="description" type="String" />
+		<column name="dueDate" type="Date" />
+		<column name="status" type="int" /> <!-- 0=Pendiente, 1=Completada -->
+
+		<!-- Ordenar por fecha de vencimiento -->
+		<order by="asc">
+			<order-column name="dueDate" />
+		</order>
+	</entity>
+</service-builder>

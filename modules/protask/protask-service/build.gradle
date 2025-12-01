@@ -1,0 +1,12 @@
+dependencies {
+	api project(":modules:protask:protask-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+}
+
+buildService {
+	apiDir = "../protask-api/src/main/java"
+	testDir = "../protask-test/src/testIntegration/java"
+}
+
+group = "com.miempresa.protask"

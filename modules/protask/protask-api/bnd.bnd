@@ -1,0 +1,10 @@
+Bundle-Name: protask-api
+Bundle-SymbolicName: com.miempresa.protask.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.miempresa.protask.exception,\
+	com.miempresa.protask.model,\
+	com.miempresa.protask.service,\
+	com.miempresa.protask.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../protask-service/service.xml
