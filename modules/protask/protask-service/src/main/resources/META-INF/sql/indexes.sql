@@ -1,0 +1,1 @@
+create unique index IX_7C7DD8CE on ProTask_Task (uuid_[$COLUMN_LENGTH:75$], groupId);

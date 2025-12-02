@@ -1,11 +1,3 @@
-***
-
-### 2. Archivo `.gitignore`
-
-Esto es **crítico**. Si no lo pones, subirás miles de archivos innecesarios (como el servidor entero) a GitHub.
-Crea un archivo llamado **`.gitignore`** (el punto al principio es importante) en la raíz `ProTask-Manager/`:
-
-```gitignore
 # --- Liferay Workspace ---
 bundles/
 build/
@@ -15,7 +7,6 @@ TEST-*.xml
 
 # --- Gradle ---
 .gradle/
-build/
 out/
 /gradle/
 !gradle/wrapper/gradle-wrapper.jar
@@ -44,7 +35,6 @@ out/
 Thumbs.db
 
 # --- Modules specific ---
-# Ignorar carpetas de build dentro de los módulos
 modules/*/build/
 modules/*/bin/
 modules/*/test-classes/
@@ -52,6 +42,6 @@ modules/*/*/build/
 modules/*/*/bin/
 modules/*/*/test-classes/
 
-# Ignorar node_modules si hacemos frontend luego
+# --- Web ---
 node_modules/
 .sass-cache/
