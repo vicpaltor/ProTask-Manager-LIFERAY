@@ -2,6 +2,16 @@
 
 <h1>Mis Tareas</h1>
 
+<portlet:renderURL var="addEntryURL">
+    <portlet:param name="mvcPath" value="/edit.jsp" />
+</portlet:renderURL>
+
+<!--Botón visual usando la librería AUI (AlloyUI/Clay) -->
+<aui:button-row>
+    <aui:button cssClass="btn btn-primary" href="<%= addEntryURL %>" value="Nueva Tarea" />
+</aui:button-row>
+
+
 <%
     // Recuperamos la lista
     List<Task> lista = (List<Task>) request.getAttribute("listaDeTareas");
