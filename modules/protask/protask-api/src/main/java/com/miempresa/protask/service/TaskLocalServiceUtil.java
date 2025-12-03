@@ -37,14 +37,13 @@ public class TaskLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.miempresa.protask.service.impl.TaskLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-
-	/**
-	 * Método de negocio para crear una nueva tarea de forma segura.
-	 */
 	public static Task addTask(
-		String title, String description, java.util.Date dueDate) {
+			String title, String description, java.util.Date dueDate,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
-		return getService().addTask(title, description, dueDate);
+		return getService().addTask(
+			title, description, dueDate, serviceContext);
 	}
 
 	/**

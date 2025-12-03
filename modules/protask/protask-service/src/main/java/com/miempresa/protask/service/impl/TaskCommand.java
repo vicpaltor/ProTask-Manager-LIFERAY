@@ -1,5 +1,6 @@
 package com.miempresa.protask.service.impl;
 
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.miempresa.protask.service.TaskLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -23,7 +24,10 @@ public class TaskCommand {
         System.out.println("--- Ejecutando comando protask:add ---");
 
         try {
-            _taskLocalService.addTask(title, description, new Date());
+            ServiceContext serviceContext = new ServiceContext();
+            serviceContext.setUserId(0);
+            serviceContext.setScopeGroupId(0);
+            _taskLocalService.addTask(title, description, new Date(), serviceContext);
             System.out.println("✅ Tarea creada correctamente: " + title);
         } catch (Exception e) {
             e.printStackTrace();

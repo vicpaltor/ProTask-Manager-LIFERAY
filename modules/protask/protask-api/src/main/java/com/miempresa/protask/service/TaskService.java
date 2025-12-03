@@ -20,6 +20,15 @@ import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
+/**
+ * Provides the remote service interface for Task. Methods of this
+ * service are expected to have security checks based on the propagated JAAS
+ * credentials because this service can be accessed remotely.
+ *
+ * @author Brian Wing Shun Chan
+ * @see TaskServiceUtil
+ * @generated
+ */
 @AccessControlled
 @JSONWebService
 @ProviderType
@@ -29,18 +38,51 @@ import org.osgi.annotation.versioning.ProviderType;
 )
 public interface TaskService extends BaseService {
 
+	/*
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify this interface directly. Add custom service methods to <code>com.miempresa.protask.service.impl.TaskServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the task remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link TaskServiceUtil} if injection and service tracking are not available.
+	 */
+
+	/**
+	 * Gets all tasks (alternative method name for testing).
+	 *
+	 * URL: /api/jsonws/protask.task/get-all
+	 *
+	 * @return List of all tasks
+	 */
 	@AccessControlled(guestAccessEnabled = true)
 	@JSONWebService(method = "GET", value = "get-all")
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Task> getAll();
 
+	/**
+	 * Gets all tasks.
+	 *
+	 * This method is exposed as a JSON Web Service and allows guest access.
+	 * URL: /api/jsonws/protask.task/get-all-tasks
+	 *
+	 * @return List of all tasks
+	 */
 	@AccessControlled(guestAccessEnabled = true)
 	@JSONWebService(method = "GET", value = "get-all-tasks")
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Task> getAllTasks();
 
+	/**
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * Health check method to verify service is accessible.
+	 *
+	 * URL: /api/jsonws/protask.task/test
+	 *
+	 * @return Simple response indicating service is working
+	 */
 	@AccessControlled(guestAccessEnabled = true)
 	@JSONWebService(method = "GET", value = "test")
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

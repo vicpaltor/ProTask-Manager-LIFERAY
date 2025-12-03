@@ -1,43 +1,46 @@
-$readmeContent = @"
-# 📋 ProTask Manager - Sistema de Gestión de Tareas en Liferay DXP
+# 🚀 ProTask Manager - Liferay DXP Application
 
-> **Estado del Proyecto:** 🚧 En Desarrollo (Fase de Persistencia completada)
+[![Liferay](https://img.shields.io/badge/Liferay-7.4_CE-blue.svg)](https://liferay.dev/)
+[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
+[![Status](https://img.shields.io/badge/Status-Stable-green.svg)]()
 
-**ProTask Manager** es una aplicación modular desarrollada sobre la plataforma **Liferay Portal 7.4 (Community Edition)**. Su objetivo es gestionar tareas y eventos empresariales utilizando la arquitectura OSGi estándar de Liferay, persistencia robusta y una interfaz moderna.
-
-Este proyecto sirve como demostración práctica de arquitectura de software en Liferay, implementando patrones como **Service Builder**, **MVC Portlet** e integración con **Base de Datos externa**.
-
----
-
-## 🛠️ Stack Tecnológico
-
-*   **Plataforma:** Liferay Portal 7.4 CE GA132.
-*   **Lenguaje:** Java 17 (OpenJDK).
-*   **Gestión de Construcción:** Gradle (Liferay Workspace).
-*   **Base de Datos:** PostgreSQL 14 (Contenerizada en Docker).
-*   **Arquitectura:** OSGi Modular (API/Service split).
-*   **Herramientas:** Blade CLI, Docker Desktop, IntelliJ IDEA.
+**ProTask Manager** es una solución modular completa ("Full Stack") desarrollada sobre **Liferay DXP 7.4**.
+Este proyecto demuestra la implementación de una arquitectura limpia siguiendo los estándares OSGi de Liferay, desde la capa de persistencia hasta la exposición de APIs Headless y la interfaz de usuario.
 
 ---
 
-## 📂 Estructura del Proyecto
+## ⭐️ Características Técnicas (Technical Highlights)
 
-El proyecto sigue la estructura estándar de un **Liferay Workspace**:
+Este repositorio demuestra dominio en las siguientes áreas clave de Liferay:
 
+*   **Arquitectura Modular OSGi:** Separación estricta entre definición de API (`-api`), implementación de negocio (`-service`) e interfaz de usuario (`-web`).
+*   **Liferay Service Builder:** Modelado de datos avanzado, gestión de transacciones y generación de capa de persistencia (Hibernate/JPA).
+*   **Headless API / JSONWS:** Exposición de servicios RESTful seguros para consumo externo (Mobile/SPA), configurando contextos JAX-RS/JSONWS personalizados.
+*   **MVC Portlet:** Desarrollo de interfaz de usuario utilizando el patrón Modelo-Vista-Controlador de Liferay.
+*   **Validaciones y Seguridad:**
+    *   Implementación de **ServiceContext** para auditoría automática (userId, companyId, scopeGroupId).
+    *   Validaciones de negocio robustas en capa de servicio.
+    *   Control de acceso a nivel de método (`@AccessControlled`).
+*   **Frontend:** Uso de **JSP**, **Taglibs de Liferay (AUI/Clay)** y gestión de internacionalización (`Language.properties`) con soporte Unicode.
+
+---
+
+## 🏗 Estructura del Proyecto
+
+```text
 ProTask-Manager/
-├── bundles/                 # Servidor Liferay Tomcat (Git ignored)
-├── configs/                 # Configuraciones de entorno (Docker, Local, Prod)
-├── modules/                 # Código Fuente OSGi
-│   └── protask/             # Módulo principal de Tareas
-│       ├── protask-api/     # Interfaces y Modelos (Exportado)
-│       └── protask-service/ # Implementación, Capa de Persistencia y SQL
-├── themes/                  # Temas visuales (Frontend)
-└── build.gradle             # Configuración global de Gradle
+├── modules/
+│   ├── protask/
+│   │   ├── protask-api/      # Interfaces, Excepciones y Modelos (OSGi Exported)
+│   │   └── protask-service/  # Lógica de Negocio, Validaciones y Persistencia SQL
+│   └── protask-web/          # Controlador MVC, Action Commands y Vistas JSP
+├── configs/                  # Configuraciones de entorno (Docker)
+└── bundles/                  # Liferay Server Runtime
 
+````
 ---
 
-
-## 🚀 Guía de Instalación y Despliegue
+## 🚀 Instalación y Despliegue
 
 Sigue estos pasos para levantar el entorno de desarrollo local.
 
@@ -50,17 +53,12 @@ Sigue estos pasos para levantar el entorno de desarrollo local.
 ```bash
 git clone https://github.com/tu-usuario/ProTask-Manager.git
 cd ProTask-Manager
-
+````
 ### 3. Configurar la Base de Datos (Docker)
 El proyecto requiere una instancia de PostgreSQL. Ejecuta el siguiente comando para levantar el contenedor:
 
 ```bash
-docker run --name liferay-postgres 
-  -e POSTGRES_USER=liferay 
-  -e POSTGRES_PASSWORD=liferay 
-  -e POSTGRES_DB=lportal 
-  -p 5433:5432 
-  -d postgres:14
+docker run --name liferay-postgres -e POSTGRES_USER=liferay -e POSTGRES_PASSWORD=liferay -e POSTGRES_DB=lportal -p 5433:5432 -d postgres:14
 ```
 > **Nota:** Se utiliza el puerto local **5433** para evitar conflictos con instalaciones previas de Postgres.
 
@@ -68,67 +66,36 @@ docker run --name liferay-postgres
 Descarga el bundle de Tomcat/Liferay necesario (si no existe):
 
 ```bash
+./gradlew :modules:protask:deploy
+./gradlew :modules:protask-web:deploy
 ./gradlew initBundle
 ```
 
-### 5. Configuración del Portal
-Asegúrate de tener el archivo bundles/portal-ext.properties con la conexión a BD:
+### 5. Ejemplo de Uso de API (Headless)
+AEl sistema expone endpoints para integración con terceros.
 
 ```properties
-jdbc.default.driverClassName=org.postgresql.Driver
-jdbc.default.url=jdbc:postgresql://localhost:5433/lportal
-jdbc.default.username=liferay
-jdbc.default.password=liferay
-setup.wizard.enabled=false
+Request:
+GET /api/jsonws/protask.task/get-all-tasks
+```
+Response:
+```properties
+[
+{
+"taskId": 101,
+"title": "Revisión de Código",
+"description": "Validar pull request de integración",
+"status": 0,
+"dueDate": 1764633600000,
+"userName": "Test Test"
+}
+]
 ```
 
-### 6. Despliegue de Módulos (Backend)
-Compila y despliega la capa de persistencia (Service Builder):
-
-```bash
-./gradlew :modules:protask:deploy
-```
-*Verifica en los logs que aparece: STARTED com.miempresa.protask.service_1.0.0*
-
-### 7. Ejecutar
-Arranca el servidor desde la carpeta bin de Tomcat o mediante IntelliJ. Accede a:
-*   **URL:** http://localhost:8080
-*   **Usuario:** test@liferay.com
-*   **Clave:** test
-
----
-
-## 🗃️ Modelo de Datos (Entity: Task)
-
-La entidad principal Task ha sido generada mediante **Liferay Service Builder** (service.xml), garantizando:
-*   Inyección de dependencias OSGi.
-*   Capa de persistencia Hibernate/JPA optimizada.
-*   Caché de segundo nivel automática.
-
-**Campos principales:**
-*   taskId (PK, Long)
-*   title (String)
-*   description (String)
-*   dueDate (Date)
-*   status (int)
-*   auditFields (userId, createDate, etc.)
-
----
-
-## 📈 Roadmap del Proyecto
-
-*   [x] **Fase 1:** Configuración de entorno y Workspace.
-*   [x] **Fase 2:** Conexión a Base de Datos y Service Builder.
-*   [ ] **Fase 3:** Lógica de Negocio (API Local).
-*   [ ] **Fase 4:** Desarrollo Frontend (MVC Portlet & JSPs).
-*   [ ] **Fase 5:** Interacción Usuario-Servidor (Action Commands).
-*   [ ] **Fase 6:** API REST (Headless).
-
----
 
 ## 👤 Autor
 
-**Víctor** - *Desarrollador Java & Liferay*
+**Víctor Manuel Palos Torres** - *Desarrollador Java & Liferay*
 [LinkedIn](https://www.linkedin.com/in/victor-palos/) | [GitHub](https://github.com/vicpaltor)
 "@
 

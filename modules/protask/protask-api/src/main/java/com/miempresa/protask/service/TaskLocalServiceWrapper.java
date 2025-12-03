@@ -26,14 +26,14 @@ public class TaskLocalServiceWrapper
 		_taskLocalService = taskLocalService;
 	}
 
-	/**
-	 * Método de negocio para crear una nueva tarea de forma segura.
-	 */
 	@Override
 	public com.miempresa.protask.model.Task addTask(
-		String title, String description, java.util.Date dueDate) {
+			String title, String description, java.util.Date dueDate,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _taskLocalService.addTask(title, description, dueDate);
+		return _taskLocalService.addTask(
+			title, description, dueDate, serviceContext);
 	}
 
 	/**
