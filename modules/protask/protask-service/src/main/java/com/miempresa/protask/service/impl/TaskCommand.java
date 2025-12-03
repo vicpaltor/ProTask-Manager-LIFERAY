@@ -8,8 +8,8 @@ import java.util.Date;
 
 @Component(
         property = {
-                "osgi.command.function=add",  // Nombre del comando
-                "osgi.command.scope=protask"  // Ámbito del comando
+                "osgi.command.function=add",  // Command name
+                "osgi.command.scope=protask"  // Command scope
         },
         service = Object.class
 )

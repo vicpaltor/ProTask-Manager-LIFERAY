@@ -26,6 +26,31 @@ public class TaskServiceWrapper
 	}
 
 	/**
+	 * Gets all tasks (alternative method name for testing).
+	 *
+	 * URL: /api/jsonws/protask.task/get-all
+	 *
+	 * @return List of all tasks
+	 */
+	@Override
+	public java.util.List<com.miempresa.protask.model.Task> getAll() {
+		return _taskService.getAll();
+	}
+
+	/**
+	 * Gets all tasks.
+	 *
+	 * This method is exposed as a JSON Web Service and allows guest access.
+	 * URL: /api/jsonws/protask.task/get-all-tasks
+	 *
+	 * @return List of all tasks
+	 */
+	@Override
+	public java.util.List<com.miempresa.protask.model.Task> getAllTasks() {
+		return _taskService.getAllTasks();
+	}
+
+	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
@@ -33,6 +58,18 @@ public class TaskServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _taskService.getOSGiServiceIdentifier();
+	}
+
+	/**
+	 * Health check method to verify service is accessible.
+	 *
+	 * URL: /api/jsonws/protask.task/test
+	 *
+	 * @return Simple response indicating service is working
+	 */
+	@Override
+	public String test() {
+		return _taskService.test();
 	}
 
 	@Override
