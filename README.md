@@ -97,7 +97,4 @@ Response:
 
 **Víctor Manuel Palos Torres** - *Desarrollador Java & Liferay*
 [LinkedIn](https://www.linkedin.com/in/victor-palos/) | [GitHub](https://github.com/vicpaltor)
-"@
 
-$readmeContent | Set-Content -Path "README.md" -Encoding UTF8
-Write-Host "✅ Archivo README.md creado con éxito en la carpeta actual." -ForegroundColor Green
